@@ -113,7 +113,7 @@ def count_repeats(xs, x):
     last_index = rmost(0, len(xs) - 1)
 
     if last_index is not None and first_index is not None:
-        return(last_index - first_index) + 1
+        return (last_index - first_index) + 1
     else:
         return 0
 
