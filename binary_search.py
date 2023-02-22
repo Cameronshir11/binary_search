@@ -117,6 +117,7 @@ def count_repeats(xs, x):
     else:
         return 0
 
+
 def argmin(f, lo, hi, epsilon=1e-3):
     '''
     Assumes that f is an input function that takes
