@@ -67,21 +67,55 @@ def count_repeats(xs, x):
     >>> count_repeats([3, 2, 1], 4)
     0
     '''
-    if len(xs) == 0:
-        return False
+    if not xs:
+        return 0
 
-    def go(left, right, x):
-        if left > right:
-            return 0
+    def lmost(left, right):
+        if left == right:
+            if xs[left] == x:
+                return left
+            else:
+                return None
+        result = None
         mid = (left + right) // 2
-        if xs[mid] == x:
-            return 1 + go(left, mid - 1, x) + go(mid + 1, right, x)
-        elif xs[mid] > x:
-            return go(left, mid - 1, x)
+        if x == xs[mid]:
+            result = mid
+            if xs[mid - 1] == x and mid != 0:
+                right = mid - 1
+            else:
+                return result
+        elif x < xs[mid]:
+            left = mid + 1
         else:
-            return go(mid + 1, right, x)
-    return go(0, len(xs) - 1, x)
+            right = mid - 1
+        return lmost(left, right)
+    first_index = lmost(0, len(xs) - 1)
 
+    def rmost(left, right):
+        if left == right:
+            if xs[left] == x:
+                return left
+            else:
+                return None
+        result = None
+        mid = (left + right) // 2
+        if x == xs[mid]:
+            result = mid
+            if xs[mid + 1] == x and ((mid + 1) < len(xs)):
+                left = mid + 1
+            else:
+                return result
+        elif x > xs[mid]:
+            right = mid - 1
+        else:
+            left = mid + 1
+        return rmost(left, right)
+    last_index = rmost(0, len(xs) - 1)
+
+    if last_index is not None and first_index is not None:
+        return(last_index - first_index) + 1
+    else:
+        return 0
 
 def argmin(f, lo, hi, epsilon=1e-3):
     '''
