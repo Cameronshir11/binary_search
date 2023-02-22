@@ -33,7 +33,7 @@ def find_smallest_positive(xs):
 
     while low <= high:
         mid = (low + high) // 2
-        if xs[mid] > 0 and (mid == 0 or xs[mid -1] <= 0):
+        if xs[mid] > 0 and (mid == 0 or xs[mid - 1] <= 0):
             return mid
         elif xs[mid] <= 0:
             low = mid + 1
