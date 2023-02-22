@@ -67,12 +67,20 @@ def count_repeats(xs, x):
     >>> count_repeats([3, 2, 1], 4)
     0
     '''
-    if not xs:
-        return 0
-    if xs[0] == x:
-        return 1 + count_repeats(xs[1:], x)
-    else:
-        return count_repeats(xs[1:], x)
+    if len(xs) == 0:
+        return False
+
+    def go(left, right, x):
+        if left > right:
+            return 0
+        mid = (left + right) // 2
+        if xs[mid] == x:
+            return 1 + go(left, mid - 1, x) + go(mid + 1, right, x)
+        elif xs[mid] > x:
+            return go(left, mid - 1, x)
+        else:
+            return go(mid + 1, right, x)
+    return go(0, len(xs) - 1, x)
 
 
 def argmin(f, lo, hi, epsilon=1e-3):
